@@ -8,14 +8,10 @@ app.post('/webhook', (req, res) => {
   const message = req.body?.message;
   if (!message?.text) return;
   
-  const messageId = message.message_id;
-  const chatId = message.chat.id;
-  const texto = message.text;
-  
   fetch(process.env.N8N_WEBHOOK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ messageId, chatId, texto })
+    body: JSON.stringify({ message: message })
   }).catch(console.error);
 });
 
